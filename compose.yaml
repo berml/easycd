@@ -1,0 +1,68 @@
+version: "3.6"
+
+services:
+  caddy:
+    image: berml/caddy
+    ports:
+    - 80:80
+    environment:
+    - EASYCD_DOMAIN=${EASYCD_DOMAIN:-localhost}
+    - EASYCD_SCHEME=${EASYCD_SCHEME:-http}
+
+  gitea:
+    image: gitea/gitea:1.8
+    volumes:
+    - gitea:/data
+    environment:
+    - RUN_MODE=prod
+    - ROOT_URL=${EASYCD_SCHEME:-http}://gitea.${EASYCD_DOMAIN:-localhost}
+    - DB_TYPE=postgres
+    - DB_HOST=postgres:5432
+    - DB_USER=${EASYCD_USER:-easycd}
+    - DB_PASSWD=${EASYCD_PASSWORD:-easycd}
+    - DB_NAME=gitea
+    - SSH_DOMAIN=${EASYCD_DOMAIN:-localhost}
+    - SSH_PORT=2222
+    ports:
+    - 2222:22
+
+  postgres:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_USER=${EASYCD_USER:-easycd}
+    - POSTGRES_PASSWORD=${EASYCD_PASSWORD:-easycd}
+    - POSTGRES_DB=gitea
+    volumes:
+    - postgres:/var/lib/postgresql/data
+
+  portainer:
+    image: portainer/portainer:1.20.2
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - portainer:/data
+
+  drone:
+    image: drone/drone:1.0
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - drone:/data
+    environment:
+    # - DRONE_GITEA_SERVER=${EASYCD_SCHEME:-http}://gitea.${EASYCD_DOMAIN:-localhost}
+    - DRONE_GITEA_SERVER=http://gitea:3000
+    - DRONE_GIT_ALWAYS_AUTH=true
+    - DRONE_RUNNER_CAPACITY=2
+    - DRONE_SERVER_HOST=drone.${EASYCD_DOMAIN:-localhost}
+    - DRONE_SERVER_PROTO=${EASYCD_SCHEME:-http}
+    - DRONE_TLS_AUTOCERT=false
+
+  # nexus:
+  #   image: sonatype/nexus3:3.15.2
+  #   volumes:
+  #   - nexus:/nexus-data
+
+volumes:
+  gitea:
+  postgres:
+  portainer:
+  drone:
+  # nexus:

@@ -1,0 +1,24 @@
+{$EASYCD_SCHEME}://gitea.{$EASYCD_DOMAIN} {
+    proxy / gitea:3000 {
+        transparent
+    }
+}
+
+{$EASYCD_SCHEME}://portainer.{$EASYCD_DOMAIN} {
+    proxy / portainer:9000 {
+        transparent
+        websocket
+    }
+}
+
+{$EASYCD_SCHEME}://drone.{$EASYCD_DOMAIN} {
+    proxy / drone:80 {
+        transparent
+    }
+}
+
+{$EASYCD_SCHEME}://nexus.{$EASYCD_DOMAIN} {
+    proxy / nexus:8081 {
+        transparent
+    }
+}
