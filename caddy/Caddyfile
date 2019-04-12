@@ -22,3 +22,9 @@
         transparent
     }
 }
+
+{$EASYCD_SCHEME}://pgadmin.{$EASYCD_DOMAIN} {
+    proxy / pgadmin:80 {
+        transparent
+    }
+}
