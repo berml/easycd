@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+if [ -f /etc/caddy/caddy.pid ]; then
+    kill -USR1 `cat /etc/caddy/caddy.pid`
+    exit
+fi
+
+caddy -agree -conf /etc/caddy/Caddyfile \
+    -pidfile /etc/caddy/caddy.pid -log stdout &
+
+docker-gen -watch \
+    -endpoint unix:///var/run/docker.sock \
+    -notify "caddy-proxy" \
+    /etc/caddy/Caddyfile.tpl \
+    /etc/caddy/conf.d/caddy-proxy.conf
