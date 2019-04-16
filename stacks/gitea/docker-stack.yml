@@ -38,3 +38,7 @@ services:
 volumes:
   gitea:
   gitea-postgres:
+
+networks:
+  core:
+    external: true

@@ -6,7 +6,7 @@
         "note": "A painless self-hosted Git service.",
         "categories": ["development"],
         "platform": "linux",
-        "logo": "https://raw.githubusercontent.com/portainer/templates/master/stacks/gitea/gitea.png",
+        "logo": "https://raw.githubusercontent.com/berml/easycd/master/stacks/gitea/gitea.png",
         "repository": {
           "url": "https://github.com/berml/easycd",
           "stackfile": "stacks/gitea/docker-stack.yml"
