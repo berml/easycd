@@ -7,11 +7,11 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     - drone:/data
     environment:
-    - DRONE_GITEA_SERVER=http://gitea:3000 #${EASYCD_SCHEME:-http}://gitea.${EASYCD_DOMAIN:-localhost}
+    - DRONE_GITEA_SERVER=${DRONE_GITEA_ADDRESS}
     - DRONE_GIT_ALWAYS_AUTH=true
     - DRONE_RUNNER_CAPACITY=2
     - DRONE_SERVER_HOST=${DRONE_SUBDOMAIN}.${DRONE_DOMAIN}
-    - DRONE_SERVER_PROTO=${${DRONE_SCHEME}}
+    - DRONE_SERVER_PROTO=${DRONE_SCHEME}
     - DRONE_TLS_AUTOCERT=false
     - DRONE_DATABASE_DRIVER=postgres
     - DRONE_DATABASE_DATASOURCE=postgres://${DRONE_USER}:${DRONE_PASSWORD}@drone-postgres:5432/drone?sslmode=disable
