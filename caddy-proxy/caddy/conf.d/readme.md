@@ -1,0 +1,1 @@
+Put your caddy configuration on some .conf file inside this directory
