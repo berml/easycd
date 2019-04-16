@@ -21,8 +21,8 @@ services:
       caddy-proxy.proxy.path: /
       caddy-proxy.proxy.upstream: portainer:9000
     networks:
+    - easycd_core
     - default
-    - core
     ports:
     - 2222:22
 
