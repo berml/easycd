@@ -91,7 +91,7 @@
                 "name": "DRONE_GITEA_ADDRESS",
                 "label": "Gitea URL address",
                 "description": "What is the Gitea server URL address?",
-                "default": "gitea.localhost"
+                "default": "http://gitea.localhost"
             }
         ]
     }
