@@ -1,0 +1,40 @@
+version: "3.6"
+
+services:
+  gitea:
+    image: gitea/gitea:1.8
+    volumes:
+    - gitea:/data
+    environment:
+    - RUN_MODE=prod
+    - ROOT_URL=${GITEA_SCHEME}://${GITEA_SUBDOMAIN}.${GITEA_DOMAIN}
+    - DB_TYPE=postgres
+    - DB_HOST=gitea-postgres:5432
+    - DB_USER=${GITEA_USERNAME}
+    - DB_PASSWD=${GITEA_PASSWORD}
+    - DB_NAME=gitea
+    - SSH_DOMAIN=${GITEA_SUBDOMAIN}.${GITEA_DOMAIN}
+    labels:
+      caddy-proxy.scheme: ${GITEA_SCHEME}
+      caddy-proxy.domain: ${GITEA_DOMAIN}
+      caddy-proxy.name: ${GITEA_SUBDOMAIN}
+      caddy-proxy.proxy.path: /
+      caddy-proxy.proxy.upstream: portainer:9000
+    networks:
+    - default
+    - core
+    ports:
+    - 2222:22
+
+  gitea-postgres:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_USER=${GITEA_USERNAME}
+    - POSTGRES_PASSWORD=${GITEA_PASSWORD}
+    - POSTGRES_DB=gitea
+    volumes:
+    - gitea-postgres:/var/lib/postgresql/data
+
+volumes:
+  gitea:
+  gitea-postgres:

@@ -1,0 +1,47 @@
+[
+    {
+        "type": 2,
+        "title": "Gitea",
+        "description": "Git with a cup of tea",
+        "note": "A painless self-hosted Git service.",
+        "categories": ["development"],
+        "platform": "linux",
+        "logo": "https://raw.githubusercontent.com/portainer/templates/master/stacks/gitea/gitea.png",
+        "repository": {
+          "url": "https://github.com/berml/easycd",
+          "stackfile": "stacks/gitea/docker-stack.yml"
+        },
+        "env": [
+            {
+                "name": "GITEA_SCHEME",
+                "label": "Scheme",
+                "description": "Should automatic proxy publish http or https domain?",
+                "default": "http"
+            },
+            {
+                "name": "GITEA_SUBDOMAIN",
+                "label": "Sub-domain",
+                "description": "What is the name of the sub-domain that should be published?",
+                "default": "gitea"
+            },
+            {
+                "name": "GITEA_DOMAIN",
+                "label": "Domain",
+                "description": "What is the name of the sub-domain that should be published?",
+                "default": "localhost"
+            },
+            {
+                "name": "GITEA_USERNAME",
+                "label": "Database username",
+                "description": "What is the name of user database?",
+                "default": "gitea"
+            },
+            {
+                "name": "GITEA_PASSWORD",
+                "label": "Database password",
+                "description": "What is the name of user database?",
+                "default": "gitea"
+            }
+        ]
+    }
+]
