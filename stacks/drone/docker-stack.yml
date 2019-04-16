@@ -14,7 +14,7 @@ services:
     - DRONE_SERVER_PROTO=${DRONE_SCHEME}
     - DRONE_TLS_AUTOCERT=false
     - DRONE_DATABASE_DRIVER=postgres
-    - DRONE_DATABASE_DATASOURCE=postgres://${DRONE_USER}:${DRONE_PASSWORD}@drone-postgres:5432/drone?sslmode=disable
+    - DRONE_DATABASE_DATASOURCE=postgres://${DRONE_USERNAME}:${DRONE_PASSWORD}@drone-postgres:5432/drone?sslmode=disable
     labels:
       caddy-proxy.scheme: ${DRONE_SCHEME}
       caddy-proxy.domain: ${DRONE_DOMAIN}
@@ -28,8 +28,8 @@ services:
   drone-postgres:
     image: postgres:9.6
     environment:
-    - POSTGRES_USER=${EASYCD_USER:-easycd}
-    - POSTGRES_PASSWORD=${EASYCD_PASSWORD:-easycd}
+    - POSTGRES_USER=${DRONE_USERNAME}
+    - POSTGRES_PASSWORD=${DRONE_PASSWORD}
     - POSTGRES_DB=drone
     volumes:
     - drone-postgres:/var/lib/postgresql/data
