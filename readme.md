@@ -21,3 +21,9 @@ You must access your administrative panel the first time (you will need to creat
 ```
 http://portainer.my.domain
 ```
+
+On Settings, set "Use external templates" and put:
+
+```
+https://raw.githubusercontent.com/berml/easycd/master/template.json
+```

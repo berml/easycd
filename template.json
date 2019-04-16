@@ -51,7 +51,7 @@
         "note": "Drone is a self-service Continuous Delivery platform for busy development teams.",
         "categories": ["development"],
         "platform": "linux",
-        "logo": "https://raw.githubusercontent.com/berml/easycd/master/stacks/drone/drone.svg",
+        "logo": "https://raw.githubusercontent.com/berml/easycd/master/stacks/drone/drone.png",
         "repository": {
           "url": "https://github.com/berml/easycd",
           "stackfile": "stacks/drone/docker-stack.yml"
