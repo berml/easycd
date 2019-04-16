@@ -1,0 +1,43 @@
+version: "3.6"
+
+services:
+  drone:
+    image: drone/drone:1.0
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - drone:/data
+    environment:
+    - DRONE_GITEA_SERVER=http://gitea:3000 #${EASYCD_SCHEME:-http}://gitea.${EASYCD_DOMAIN:-localhost}
+    - DRONE_GIT_ALWAYS_AUTH=true
+    - DRONE_RUNNER_CAPACITY=2
+    - DRONE_SERVER_HOST=${DRONE_SUBDOMAIN}.${DRONE_DOMAIN}
+    - DRONE_SERVER_PROTO=${${DRONE_SCHEME}}
+    - DRONE_TLS_AUTOCERT=false
+    - DRONE_DATABASE_DRIVER=postgres
+    - DRONE_DATABASE_DATASOURCE=postgres://${DRONE_USER}:${DRONE_PASSWORD}@drone-postgres:5432/drone?sslmode=disable
+    labels:
+      caddy-proxy.scheme: ${DRONE_SCHEME}
+      caddy-proxy.domain: ${DRONE_DOMAIN}
+      caddy-proxy.name: ${DRONE_SUBDOMAIN}
+      caddy-proxy.proxy.path: /
+      caddy-proxy.proxy.upstream: drone:80
+    networks:
+    - easycd_core
+    - default
+
+  drone-postgres:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_USER=${EASYCD_USER:-easycd}
+    - POSTGRES_PASSWORD=${EASYCD_PASSWORD:-easycd}
+    - POSTGRES_DB=drone
+    volumes:
+    - drone-postgres:/var/lib/postgresql/data
+
+volumes:
+  drone:
+  drone-postgres:
+
+networks:
+  easycd_core:
+    external: true

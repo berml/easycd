@@ -43,5 +43,56 @@
                 "default": "gitea"
             }
         ]
+    },
+    {
+        "type": 2,
+        "title": "Drone",
+        "description": "Automate Software Testing and Delivery",
+        "note": "Drone is a self-service Continuous Delivery platform for busy development teams.",
+        "categories": ["development"],
+        "platform": "linux",
+        "logo": "https://raw.githubusercontent.com/berml/easycd/master/stacks/drone/drone.svg",
+        "repository": {
+          "url": "https://github.com/berml/easycd",
+          "stackfile": "stacks/drone/docker-stack.yml"
+        },
+        "env": [
+            {
+                "name": "DRONE_SCHEME",
+                "label": "Scheme",
+                "description": "Should automatic proxy publish http or https domain?",
+                "default": "http"
+            },
+            {
+                "name": "DRONE_SUBDOMAIN",
+                "label": "Sub-domain",
+                "description": "What is the name of the sub-domain that should be published?",
+                "default": "drone"
+            },
+            {
+                "name": "DRONE_DOMAIN",
+                "label": "Domain",
+                "description": "What is the name of the sub-domain that should be published?",
+                "default": "localhost"
+            },
+            {
+                "name": "DRONE_USERNAME",
+                "label": "Database username",
+                "description": "What is the name of user database?",
+                "default": "drone"
+            },
+            {
+                "name": "DRONE_PASSWORD",
+                "label": "Database password",
+                "description": "What is the name of user database?",
+                "default": "drone"
+            },
+            {
+                "name": "DRONE_GITEA_ADDRESS",
+                "label": "Gitea URL address",
+                "description": "What is the Gitea server URL address?",
+                "default": "gitea.localhost"
+            }
+        ]
     }
 ]
