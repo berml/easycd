@@ -40,5 +40,5 @@ volumes:
   gitea-postgres:
 
 networks:
-  core:
+  easycd_core:
     external: true
